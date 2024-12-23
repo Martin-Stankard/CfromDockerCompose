@@ -7,8 +7,11 @@ WORKDIR /app
 # Copy the C source code into the container
 COPY src/ /app/src/
 
-# Compile the C code (creating the executable 'hello')
+# Install inotify-tools (optional but helpful for file change monitoring)
+RUN apt-get update && apt-get install -y inotify-tools
+
+# Compile the C code
 RUN gcc -o hello src/main.c
 
-# Command to run the compiled executable
-CMD ["./hello"]
+# Command to watch for changes in the source and recompile
+CMD ["sh", "-c", "inotifywait -m /app/src/main.c | while read; do gcc -o hello src/main.c; ./hello; done"]

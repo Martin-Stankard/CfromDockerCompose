@@ -7,3 +7,5 @@ services:
     volumes:
       - ./src:/app/src
     command: ./hello
+    ports:
+      - "8080:80"  # Optional: Only if you want to expose any ports for communication (not needed in your case)
