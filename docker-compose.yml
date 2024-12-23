@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  c-compiler:
+    build: .
+    container_name: c-compiler-container
+    volumes:
+      - ./src:/app/src
+    command: ./hello
